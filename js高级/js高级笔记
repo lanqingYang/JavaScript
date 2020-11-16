@@ -120,8 +120,10 @@
     8. !! call（thisArg,arg1,arg2...）   (02-01)
         thisArg： 当前调用函数this的指向对象    agr1..:普通参数
 
-        !作用：  .1 调用普通函数  fn。call()
+        !作用： 
+             .1 调用普通函数  fn.call()
              .2!!  修改函数中的this指向！！
+             主要用于实现继承
 
     9. 模拟继承(03-02)
         ES6之前： 构造函数+原型对象模拟实现继承 ，被称为 组合继承
@@ -164,3 +166,56 @@
               5. 闭包作用
               6. 递归的两个条件
               7. 深拷贝和浅拷贝的区别
+
+
+    13.函数也属于对象
+         Function构造函数    ------------- Function.prototype------>     Function原型对象prototype(存放公共方法)
+                          <----- Function.prototype.constructor-- 
+              --                                                          -->
+                --                                                  --f.__proto__
+                  -->          Ftudent实例对象 f         --f     
+    
+    14. 函数调用方式6种，以及this指向（05-02）
+
+        调用方式                     this指向
+      普通函数调用                     window
+      构造函数调用                     实例对象，原型对象里面的方法也指向实例对象  Star.prototype.sing=function(){this}
+      对象方法调用                     该方法所属对象
+      事件绑定方法                     绑定事件对象
+      定时器函数                       window
+      立即执行函数                     window
+                       
+
+    15.改变函数内部this指向 (05-03)
+    call()、apply()、bind()
+    作用：调用函数;改变函数内部this指向
+
+      .1 call(thisArg,arg1...)  主要用于继承
+
+      .2 apply(thisArg,[arg1,..]或伪数组) 
+        应用：（应用它的参数是数组/伪数组）比如说可以利用 apply 借助于数学内置对象求最大值
+        var arr = [1, 66, 22, 99];
+        var max = Math.max.apply(Math, arr);
+
+      .3 bind(thisArg,arg1...)  ！！！！ 开发里面用得反而最多
+        不会调用函数!!!! 
+        f = fn.bind(o); //不会有输出，不会调用原来的函数 返回由指定的this值和初始化参数改造的 原函数拷贝
+        f(); //调用函数
+
+        如果有的函数不需要立即调用，但是又想改变这个函数的this指向此时用bind()  , 去看（05-03）例子的写法 ！666
+
+        绝妙例子：    
+            setTimeout(
+                function () {
+                this.disabled = false; //要求这个this指向当前btn，而不是window ,用bind改变this的指向 ，指向了btn
+                }.bind(this),   //这里的this只的是btn
+                2000
+             );
+
+
+        ！！总结： 相同：都可以改变this指向
+                  不同： .1 bind不会调用函数，开发中会更常用，call、apply 会调用函数
+                         .2 apply 传递的参数第二个是数组/伪数组，其余两个是(thisArg，arg1...)
+            主要场景： call ：继承
+                      apply： 经常与数组有关，比如借助数学对象实现最大最小值
+                      bind： 不调用函数，但是想改变this指向，比如改变定时器内部this的指向

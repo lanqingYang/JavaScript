@@ -107,7 +107,7 @@
         arr.lastIndexOf('red')  //返回该数组元素的！最后一个！索引号 , 没有就返回-1 (机制:从后往前查找)
 
     .6 检测是否为数组
-        arr instanceof Array 
+        arr instanceof Array  （检测Array.prototype是否存在于arr的原型链上）
         Array.isArray(arr)
     
     .7！ 数组转换为字符串
