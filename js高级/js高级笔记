@@ -1,0 +1,166 @@
+一、 面向对象问题：
+              1. 什么是面向对象
+              2. 类和对象的关系
+              3.能够使用class创建自定义类
+              4.什么是继承
+
+    面向对象特性: 封装、继承、多态性
+
+    1. ES6新增类的概念  使用class声明，之后实例化对象new
+
+        .1 类constructor构造函数 ： constructor()方法是类的构造函数，用于传参，返回对象，通过new命令生成对象实例化对象时，
+                                自动调用，如果没有显示定义，会自动创建一个constructor()
+                                constructor里面的this指向的时 创建的实例对象
+        .2 在ES6中类没有变量提升，所以必须先定义类，才能通过实例化对象
+
+        .3 类里面的属性和方法一定要加this使用！！！！！
+
+
+
+二、 构造函数和原型问题：(02-02/03)
+                     1.使用构造函数创建对象
+                     2.什么是原型以及原型的作用                  一个对象，也称为原型对象----共享方法
+                     3.访问对象成员的规则
+                     4.ES5新增的一些方法
+
+
+    1. 构造函数
+     概述： 在es6之前，对象不是通过类，而是通过 构造函数 来定义对象和他们的特征
+    （02构造函数和原型-01）
+        实例成员：构造函数内部 通过this添加的成员，实例成员只能通过实例化的对象来访问，不可以通过构造函数来访问实例成员
+        静态成员： 只能通过构造函数来访问，不能通过对象访问
+
+        构造函数的问题： 存在浪费内存的问题：同样的函数，创建不同的实例就会新去开辟空间
+
+    2. !!!原型对象prototype与 对象原型__proto__：  (对象原型指向原型对象)
+
+        .1原型对象prototype  !!!!
+        构造函数原型，为了解决资源浪费的问题
+        构造函数原型 prototype
+        构造函数通过原型分配的函数是所有对象所共享的(只用开辟一个空间)
+
+        每个构造函数都有一个prototype属性，指向另一个对象。prototype就是一个对象，这个对象的所有属性和方法，都会被构造函数所拥有
+        所以可以把不变的方法，直接电一在prototype对象上，这样所有对象的实例就可以共享这些方法
+    
+        ！！！ ps:一般情况下，公共属性定义的到公共函数里面，公共方法放到原型对象上
+
+
+        .2 !!对象原型:!!!
+        对象都会有一个属性 __proto__: 
+        指向构造函数的prototype原型对象。
+        之所以能够使用构造函数prototype原型对象的属性和方法，就是因为对象有__proto__原型的存在
+        对象身上系统自己添加一个__proto__指向构造函数的原型对象 prototype
+        console.log(Tanghao.__proto__ === Student.prototype);  //true
+
+    方法的查找规则：首先看实例对象身上是否有study方法，如果有就执行对象上的study方法
+    没有该方法，因为有__proto__的存在，就去构造函数prototype身上去查找该方法
+
+    __proto__对象原型的意义在于为对象查找机制提供一个方向，但他是一个非标准属性，所以实际开发不可以使用这个属性。
+    他只是内部指向原型对象prototype
+
+
+
+
+    3. constructor构造函数(02-04) 
+     它指回回构造函数本身
+        .1 目的： 记录该对象引用于哪个构造函数，它可以让原型对象重新指向原来的构造函数
+        .2 将原型对象赋值操作之后，constructor不再指回原来的构造函数
+         因为：原来的写法是在 prototype原来的对象上加属性，
+        而现在给prototype赋值之后将prototype里的东西全部覆盖掉了，就没有constructor属性了
+
+        例子：
+         Student.prototype = {
+         //需要自己写constructor 重新指回我们的构造函数
+            constructor: Student,
+         };
+
+
+    4. ！！！构造函数、实例、原型对象的关系(对象原型指向原型对象) ,以及  ！！！原型链！！！！！
+
+                                                                                                              ------>null                           
+                                                                                                        ---Object原型对象prototype.__proto__          
+                                Object构造函数         -----------Object.prototype---->             Object原型对象 prototype
+                                                      <-----Object原型对象.constructor---           ---->
+                                                                                                 ----
+                                                                                          ------Student原型对象prototype.__proto__
+                                                                                      --------
+        Student构造函数    -------------Student.prototype------>    Student原型对象prototype(存放公共方法)
+                          <-----Student.prototype.constructor-- 
+              --                                                          -->
+                --                                                  --Tanghao.__proto__
+                  -->          Student实例对象 Tanghao         --
+                        (Tanghao.__proto__.constructor指回构造函数)
+ 
+ 
+     提问： Tanghao.__proto__.__proto__.__proto__ 为？      ----null
+
+        原型链的意义: 为对象成员查找机制提供一个方向（路线）
+
+
+    5. ！JavaScript的成员查找机制（规则），见上图：
+      .1 当访问一个对象的属性(包括方法)，首先看对象自身有无该属性
+      .2 没有就查找它的原型（__proto__指向的prototype原型对象）
+      .3 没有就查找原型对象的原型（Object的原型对象）
+      .4 依次类推到null为止
+
+
+    6. 关于原型对象中的this指向
+        一般情况下指向 实例对象 
+
+    7. 扩展内置对象(02-07)
+        可以通过原型对象，对原来的内置对象进行扩展自定义的方法。
+        比如给Array添加sum求和方法
+
+        注意:
+        不能给内置对象 Array.prototype = {} 来覆盖原来的内置方法(写了也不会起作用的!)
+
+
+三、 ES6之前的继承 
+
+    8. !! call（thisArg,arg1,arg2...）   (02-01)
+        thisArg： 当前调用函数this的指向对象    agr1..:普通参数
+
+        !作用：  .1 调用普通函数  fn。call()
+             .2!!  修改函数中的this指向！！
+
+    9. 模拟继承(03-02)
+        ES6之前： 构造函数+原型对象模拟实现继承 ，被称为 组合继承
+        核心：通过call()把父类型的this指向子类型的this，这样就可以实现子类型继承父类型的属性
+
+        想要孩子能够拿到父亲原型对象中的方法 Father.prototype.money=function(){}
+        Son.prototype=new Father();  利用原型链， Father实例对象的__proto__指向Father.prototype来查找到
+        ！！！注意坑 ！！：
+        .1 不能Son.prototype=Father.prototype/Father  因为如果修改了子原型对象，父原型对象/父构造函数 也会改变
+        .2 利用对象的形式修改了原型对象，别忘了利用costructor 指回原来的构造函数  Son.prototype.constructor=Son
+
+
+四、ES5新增方法
+    10. 数组新增方法：（ 04-01）
+        .1 !!arr.forEach(value,index,Array)
+        .2 !!arr.some(~~~)
+        .3 !!arr.filter(~~~)
+        .4 arr.map(~~~)
+        .5 arr.every(~~~)
+
+    11. 字符串新增方法：(04-03)
+        .1 str.trim() 
+
+    12. 对象新增方法(04-04)
+    (对象属性删除可以用 delete.obj.prop)
+        .1 Object.keys(obj)    用于获取对象自身所有的属性 类似for..in.. 返回一个由属性名组成的数组
+        .2 Object.defineProperty(obj,prop,descriptor) 
+             /*  descript说明： 一对象形式{}书写
+              value：设置属性值 默认undefined，
+              writable：值是否可以重写。true|false 默认false，
+              enumerable：目标属性是否可以被枚举。true|false 默认为false
+              configurable： 目标属性是否可以被删除或者是否可以再次修改 特性(不允许再修改第三个参数descriptor里面的特性)  true|false 默认false */
+
+
+五、函数进阶
+        问题: 1. 函数多种定义和调用方式
+              2. 改变函数内部this的指向
+              3. 严格模式特点
+              4. 把函数作为参数和返回值传递
+              5. 闭包作用
+              6. 递归的两个条件
+              7. 深拷贝和浅拷贝的区别
