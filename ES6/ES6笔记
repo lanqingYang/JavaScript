@@ -1,4 +1,4 @@
-
+ES6
 (2020-11-18)
     1.let关键字 (01-01)
         .1 let声明的变量只在所处的块级有效 ,var不是
@@ -66,8 +66,14 @@
     6.剩余参数
         .1 剩余参数:  函数 实参个数>形参个数时 ,剩下的实参个数就是
         .2 剩余参数语法允许我们将一个不定数量的参数表示为一个数组  
-            const sum = (first,...args) => {}  
+            const sum = (first,...args) => { 
+            //...args 代表剩余的实参它都接受了 args是个数组
+            console.log(first); //10
+            console.log(args); //[2,30,23]
+             }
+            sum(10, 2, 40, 23);  
 
+    
         与解构配合使用
         //数组解构与剩余参数  (对象同理)
         let student = ["tanghao", "lanqing", "dudu"];

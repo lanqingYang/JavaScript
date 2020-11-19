@@ -1,0 +1,54 @@
+1. js的异步加载
+ <script src:''  defer/async> 
+
+
+2.promise
+  是异步编程语法上的改进，把异步api的执行和结果进行分离，解决回调地狱
+  promise里面写 setTimeout （02）
+
+3.js执行机制，任务队列中有哪两种任务 
+    promise 和 setTimeout()的例子   （01）
+    微任务和宏任务
+
+    宏任务： I/O，setInterval，setTimeout，
+            setImmediate（浏览器没有，node有），requestAnimationFrame（浏览器有，node没有）
+
+    微任务： Promise.then catch finally !!!
+            process.nextTick (浏览器没有，node有)
+            MutationObserver(浏览器有，node没有) ..这个用不大着
+        
+    event loop事件循环： 
+    先执行主任务，再执行宏任务，执行完后看有无微任务， 有则执行微任务，执行完再去执行下一个宏任务。（主线程优先级更高）
+    （主线程也可以当一个宏任务，主线程执行完也要去看有没有它对应的微任务要执行，执行完再去执行下一个宏任务）
+    
+
+4. 防抖和节流
+    防抖或者节流： 限制函数的执行次数
+
+    防抖：通过setTimeout的方式，在一定的时间间隔内，将多次触发变成一次触发。
+    节流：减少一段事件的触发频率
+
+5. undefined和null的区别
+    转换为数值 undefined为NAN  null为0
+    undefined表示 此处应该有值，但是还没定义。
+    null表示此处不应该有值
+
+6.htm css js 的加载顺序 script的异步加载
+    加载顺序: js放在head中会立即执行，阻塞后续的资源下载，与执行，因为js可能会修改Dom。
+    css加载不会阻塞DOM树解析（异步加载时DOM照常构建）
+    但会阻塞render树渲染（渲染时需等css加载完毕，因为render树需要css信息）
+    正常加载过程： 浏览器一遍下载html网页，一遍开始解析。
+                  解析过程发现<script>标签，暂停解析，网页渲染权交给javscript，引用了外部脚本就下载，否则直接执行。
+                  完毕之后，控制权还给渲染殷勤，回复往下解析HTML网页。
+                  html需要等head中所有js和css加载完成之后才开始绘制。
+    ps: html不需要等待放在body最后的js下载执行就会开始绘制,因此将js放在body的最后面，可以避免资源阻塞，同时使静态的html页面迅速显示。
+    将脚本文件都放在网页尾部加载，还有一个好处。在DOM结构生成之前就调用DOM，JavaScript会报错，如果脚本都在网页尾部加载，就不存在这个问题，因为这时DOM肯定已经生成了。
+
+    2.js的执行依赖前面的样式。即只有前面的样式全部下载完成后才会执行js，但是此时外链css和外链js是并行下载的。
+　css需要分块，首页的css独立，其余的css需要动态加载，因为html的绘制会被css阻塞，这样可以减少首次进入时的白屏时间。
+
+    3.外链的js如果含有defer="true"属性，将会并行加载js，到页面全部加载完成后才会执行，会按顺序执行。
+　defer属性的作用是，告诉浏览器，等到DOM加载完成后，再执行指定脚本。
+
+    4.外链的js如果含有async="true"属性，将不会依赖于任何js和css的执行，此js下载完成后立刻执行，不保证按照书写的顺序执行。
+    因为async="true"属性会告诉浏览器，js不会修改dom和样式，故不必依赖其它的js和css。　

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>防抖或节流</title>
+  </head>
+  <body>
+    <input type="text" />
+    <input type="submit" id="input" />
+
+    <script>
+      var btn = document.getElementById("input");
+      //   btn.addEventListener("click", submit, false);
+      //   btn.addEventListener("click", debonce(submit, 2000), false);
+      btn.addEventListener("click", jieliu(submit, 2000), false);
+
+      function submit(e) {
+        // console.log(this);
+        // console.log(e);
+        console.log(1);
+      }
+
+      //防抖： 通过setTimeout的方式，在一定的事件间隔内，将多次触发变成一次函数
+      //   function debonce(fn, timer) {
+      //     var t = null;
+      //     return function () {
+      //       //   console.log(arguments); //arguments[0]是事件对象 -- e
+      //       var firstClick = !t;
+      //       if (t) {
+      //         clearTimeout(t);
+      //       }
+
+      //       if (firstClick) {
+      //         fn.apply(this, arguments); //这里是因为使用的是箭头函数 所以才能访问到外部的 argument,this指向的是button
+      //       }
+
+      //       t = setTimeout(() => {
+      //         t = null;
+      //       }, timer);
+      //     };
+      //   }
+
+      //节流： 减少一时间的触发频率
+      function jieliu(fn, delay) {
+        var begin = 0;
+        return function () {
+          var cur = new Date().getTime(); //毫秒时间戳
+          console.log(cur - begin);
+
+          if (cur - begin > delay) {
+            fn.apply(this, arguments);
+          }
+          begin = cur;
+        };
+      }
+    </script>
+  </body>
+</html>
