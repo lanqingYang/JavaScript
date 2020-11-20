@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set 数据结构</title>
+  </head>
+  <!-- 
+      新的数据结构Set。 类似于数组，但是成员的值都是唯一的，没有重复的值。
+      Set本身是一个构造函数，用来生成Set数据结构
+   -->
+  <body>
+    <script>
+      //1. 创建set数据
+      const s = new Set();
+      console.log(s.size); //0 数据数量
+      //Set函数可以接收一个数组作为参数，用来初始化。
+      const set = new Set([1, 2, 3, 4, 4]); //这里的重复4会值算一个
+      console.log(set);
+      console.log(set.size); //4 ,重复的4不计算
+
+      //2. 用set做数组去重！！！
+      //把它变为数组结构！！ ,利用扩展运算符
+      const ar = [...set];
+      console.log(ar); //[1,2,3,4]
+    </script>
+  </body>
+</html>

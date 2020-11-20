@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String扩展方方法</title>
+  </head>
+  <!-- 
+    1. startsWith(): 参数字符是否在原字符串  头部 ， 返回布尔值
+    2. endsWith(): ~ 尾部，~
+    3. repeat(n): 字符串重复n次
+ -->
+  <body>
+    <script>
+      let str = "hello world!";
+
+      //1 starsWith() endsWidth()
+      console.log(str.startsWith("hello")); //true
+      console.log(str.endsWith("world")); //false
+
+      //2 repeat(n) ,返回一个新字符串
+      str1 = str.repeat(2);
+      console.log(str1); //hello world!hello world!
+    </script>
+  </body>
+</html>

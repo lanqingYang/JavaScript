@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String扩展方法</title>
+  </head>
+  <!-- 
+    1.!!模板字符串： 新增字符串的方式，使用反引号定义。   
+        作用：
+            .1 可以解析变量 ${}
+            .2 模板字符串中可以换行
+            .3 可以调用函数，返回的函数的返回值
+    
+ -->
+  <body>
+    <script>
+      let sname = `这是一个模板字符串`;
+      console.log(sname);
+
+      //--------------------------
+      //   1. 可以解析变量 ${}  就不需要用+进行拼接了
+      let uname = "Tanghao";
+      //   let sayHello = "hello,my name is " + uname;//原来的方式
+      let sayHello = `hello,my name is ${uname}`;
+      console.log(sayHello);
+
+      //--------------------------
+      //2.换行 普通字符串不可以换行
+      //3.可以调用函数
+      let result = {
+        name: "唐昊",
+        age: 1,
+        sex: "男",
+        say: function () {
+          return "hello";
+        },
+      };
+      let html = `
+      <div>
+      <span>${result.name}</span>
+      <span>${result.age}</span>
+      <span>${result.sex}</span>
+      <span>${result.say()}</span>
+      </div>`;
+
+      console.log(html); //输出的字符串是换行了的
+    </script>
+  </body>
+</html>

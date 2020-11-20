@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>for..of循环</title>
+  </head>
+  <!-- 
+       1. for in循环遍历的是数组的键值(索引)，而for of循环遍历的是数组的值。
+       2. for in 会遍历自定义属性，for of不会  (自己在后面添加的属性  arr=[1,2]  arr.name='数组')
+       3. for of 不遍历对象 for in 要遍历对象
+      
+   -->
+  <body>
+    <script>
+      var arr = [
+        {
+          name: "dudu",
+          id: 1,
+          age: 3,
+          like: [
+            {
+              id: 1,
+              name: "game",
+            },
+            {
+              id: 2,
+              name: "ball",
+            },
+          ],
+        },
+        {
+          name: "lanqing",
+          id: 2,
+          age: 4,
+        },
+      ];
+
+      //  1. for in循环遍历的是数组的键值(索引)，而for of循环遍历的是数组的值。
+      for (let i of arr) {
+        console.log(i);
+      }
+
+      for (let i in arr) {
+        console.log(i);
+      }
+
+      //------------------------------------自定义属性-----------------
+      //2. for of 不遍历自定义属性 for in会
+      console.log("-------自定义属性----");
+      //for in 会遍历自定义属性，for of不会
+      arr.add = "addSomething";
+      for (let i of arr) {
+        console.log(i); //不遍历自定义属性
+      }
+
+      for (let i in arr) {
+        console.log(i); //遍历自定一属性
+      }
+
+      //---------关于对象----------
+      //3. for of 不遍历对象 for in 要遍历对象
+      console.log("---------遍历对象-------");
+      var obj = {
+        name: "dudu",
+        age: 20,
+      };
+
+      for (let i in obj) {
+        console.log(i); //遍历对象属性名
+      }
+      for (let i of obj) {
+        console.log(i); //报错
+      }
+    </script>
+  </body>
+</html>

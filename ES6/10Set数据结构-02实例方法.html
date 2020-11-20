@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set数据结构-实例方法</title>
+  </head>
+  <!-- 
+      .1 add(value): 添加，返回Set结构本身
+      .2 delete(value): 删除，返回布尔值
+      .3 has(value): 返回布尔值，表示该值是否是Set成员
+      .4 clear(): 清除所有成员，没有返回值
+      .5 forEach(callback): 没有返回值
+   -->
+  <body>
+    <script>
+      const s = new Set();
+      //.1添加
+      s.add(1).add(2).add(3);
+      console.log(s); //set 1,2,3
+      //.2删除
+      s.delete(3);
+      console.log(s); // set 1,2
+      //.3是否含参数成员
+      console.log(s.has(1)); //true
+      console.log(s.has("1")); //false
+      //.4清除所有
+      s.clear();
+      console.log(s); //Set(0){}
+
+      //遍历 callback中不提供索引参数
+      const s2 = new Set(["22", "pink", "red", 33]);
+      s2.forEach((item, set) => {
+        console.log(item);
+        console.log(set);
+      });
+    </script>
+  </body>
+</html>

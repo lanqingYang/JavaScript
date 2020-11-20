@@ -129,6 +129,8 @@
         .4 arr.map(~~~)
         .5 arr.every(~~~)
 
+    
+
 8. 基本包装类型 3种 Number、String、Booolean (03.String对象1)
     基本包装类型: 把简单数据类型 包装为 复杂数据类型 这个基本数据类型就有了属性和方法 
     str.length
