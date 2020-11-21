@@ -9,6 +9,8 @@
     <script>
       /* Object.keys(obj) 用于获取对象自身所有的属性 类似for..in.. 返回一个由属性名组成的数组
         Object.defineProperty(obj,prop,descriptor) 定义对象中新属性或修改原有的属性
+        Object.assign(target,source1,source2..) 用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+                                  
       */
       var obj = {
         name: "唐昊",
@@ -70,10 +72,19 @@
       delete obj.name; //未规定不能被删除
       console.log(obj.name); //undefined
       //下面报错，因为不允许再次修改 descriptor里面的特性
-      Object.defineProperty(obj, "address", {
-        writable: true,
-        enumerable: true,
-      });
+      // Object.defineProperty(obj, "address", {
+      //   writable: true,
+      //   enumerable: true,
+      // });
+
+      //3.Object.assign(target,source) 使用source中的属性，覆盖target(目标文件)中的属性，并且结果会影响target对象
+      let obj1 = { name: "Tanghao", age: 1 };
+      let obj2 = { name: "dudu", like: "ball" };
+      let obj3 = { eat: "fruit" };
+
+      console.log(Object.assign(obj1, obj2, obj3)); //{ name: "dudu", like: "ball",age: 1,eat:'fruit'}
+      console.log(obj1); //{ name: "dudu", like: "ball",age: 1,eat:'fruit'}
+      //所以会影响target对象
     </script>
   </body>
 </html>

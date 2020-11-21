@@ -110,6 +110,11 @@ ES6
         .2 endsWith(): ~ 尾部，~
         .3 repeat(n): 字符串重复n次
 
+    补充对象新增方法  ：      
+    Object.assign(target,source1,source2..) 用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+    结果会影响target对象
+
+
     11.Set 数据结构
         Set:
             .1创建set数据

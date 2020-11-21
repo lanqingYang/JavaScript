@@ -160,6 +160,8 @@
               enumerable：目标属性是否可以被枚举。true|false 默认为false
               configurable： 目标属性是否可以被删除或者是否可以再次修改 特性(不允许再修改第三个参数descriptor里面的特性)  true|false 默认false */
 
+        .3(ES6新增)  Object.assign(target,source1,source2..) 用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+          结果会影响target对象
 
 五、函数进阶
         问题: 1. 函数多种定义和调用方式
